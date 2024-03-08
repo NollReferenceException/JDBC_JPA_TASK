@@ -6,21 +6,24 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 public class UserDataSet implements Serializable {
+
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column
     private String name;
+
     @Column
     private String lastName;
+
     @Column
     private byte age;
 
     @SuppressWarnings("UnusedDeclaration")
-    public UserDataSet(){};
+    public UserDataSet() {
+    }
 
-    @SuppressWarnings("UnusedDeclaration")
     public UserDataSet(String name, String lastName, byte age) {
 
         this.name = name;

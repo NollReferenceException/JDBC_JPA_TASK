@@ -39,7 +39,9 @@ public class Util {
         try {
             Class.forName("org.postgresql.Driver").newInstance();
             return DriverManager.
-                    getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "chepuh1337");
+                    getConnection("jdbc:postgresql://localhost:5432/postgres",
+                            System.getenv("postgres.login"),
+                            System.getenv("postgres.password"));
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -68,8 +70,8 @@ public class Util {
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres");
         configuration.setProperty("hibernate.default_schema", "users");
-        configuration.setProperty("hibernate.connection.username", "postgres");
-        configuration.setProperty("hibernate.connection.password", "chepuh1337");
+        configuration.setProperty("hibernate.connection.username", System.getenv("postgres.login"));
+        configuration.setProperty("hibernate.connection.password", System.getenv("postgres.password"));
         configuration.setProperty("hibernate.show_sql", "true");
 
         return configuration;

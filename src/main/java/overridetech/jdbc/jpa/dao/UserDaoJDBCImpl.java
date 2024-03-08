@@ -58,10 +58,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) {
         try {
-            String sql = "delete from " + tableId + " where id = ?";
-            PreparedStatement stmt = postgresConnection.prepareStatement(sql);
+            CallableStatement stmt = postgresConnection.prepareCall("call users.RemoveUserById(?)");
             stmt.setLong(1, id);
-            stmt.executeUpdate();
+            stmt.execute();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
