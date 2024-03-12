@@ -3,10 +3,11 @@ package overridetech.jdbc.jpa.dataSets;
 import overridetech.jdbc.jpa.model.Car;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "cars")
-public class CarDataSet {
+public class CarDataSet implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

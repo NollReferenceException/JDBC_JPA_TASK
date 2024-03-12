@@ -1,5 +1,6 @@
 package overridetech.jdbc.jpa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import overridetech.jdbc.jpa.dao.UserDao;
 import overridetech.jdbc.jpa.model.User;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     private final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
