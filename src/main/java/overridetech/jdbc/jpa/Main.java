@@ -2,13 +2,10 @@ package overridetech.jdbc.jpa;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import overridetech.jdbc.jpa.config.AppConfig;
-import overridetech.jdbc.jpa.dao.UserDaoHibernateImpl;
-import overridetech.jdbc.jpa.dao.UserDaoJDBCImpl;
 import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
 import overridetech.jdbc.jpa.service.UserService;
-import overridetech.jdbc.jpa.service.UserServiceImpl;
-import overridetech.jdbc.jpa.util.Util;
+
 
 public class Main {
     public static void main(String[] args) {
