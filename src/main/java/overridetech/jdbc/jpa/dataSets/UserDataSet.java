@@ -1,5 +1,7 @@
 package overridetech.jdbc.jpa.dataSets;
 
+import overridetech.jdbc.jpa.model.User;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -18,7 +20,10 @@ public class UserDataSet implements Serializable {
     private String lastName;
 
     @Column
-    private byte age;
+    private Byte age;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CarDataSet carDataSet;
 
     @SuppressWarnings("UnusedDeclaration")
     public UserDataSet() {
@@ -29,6 +34,14 @@ public class UserDataSet implements Serializable {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public UserDataSet(User user) {
+
+        this.name = user.getName();
+        this.lastName = user.getLastName();
+        this.age = user.getAge();
+        this.carDataSet = new CarDataSet(user.getCar());
     }
 
     public String getName() {
@@ -47,11 +60,11 @@ public class UserDataSet implements Serializable {
         this.lastName = lastName;
     }
 
-    public byte getAge() {
+    public Byte getAge() {
         return age;
     }
 
-    public void setAge(byte age) {
+    public void setAge(Byte age) {
         this.age = age;
     }
 
@@ -61,5 +74,13 @@ public class UserDataSet implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public CarDataSet getCarDataSet() {
+        return carDataSet;
+    }
+
+    public void setCarDataSet(CarDataSet carDataSet) {
+        this.carDataSet = carDataSet;
     }
 }

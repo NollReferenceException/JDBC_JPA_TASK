@@ -1,5 +1,6 @@
 import overridetech.jdbc.jpa.dao.UserDaoHibernateImpl;
 import overridetech.jdbc.jpa.dao.UserDaoJDBCImpl;
+import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
 import overridetech.jdbc.jpa.service.UserService;
 import overridetech.jdbc.jpa.service.UserServiceImpl;
@@ -42,6 +43,29 @@ public class UserServiceTest {
             userService.dropUsersTable();
             userService.createUsersTable();
             userService.saveUser(testName, testLastName, testAge);
+
+            User user = userService.getAllUsers().get(0);
+
+            if (!testName.equals(user.getName())
+                    || !testLastName.equals(user.getLastName())
+                    || testAge != user.getAge()
+            ) {
+                Assert.fail("User был некорректно добавлен в базу данных");
+            }
+
+        } catch (Exception e) {
+            Assert.fail("Во время тестирования сохранения пользователя произошло исключение\n" + e);
+        }
+    }
+
+    @Test
+    public void saveFullUser() {
+        try {
+            userService.dropUsersTable();
+            userService.createUsersTable();
+            User testUser = new User(testName, testLastName, testAge, new Car("testModel", 322));
+
+            userService.saveFullUser(testUser);
 
             User user = userService.getAllUsers().get(0);
 

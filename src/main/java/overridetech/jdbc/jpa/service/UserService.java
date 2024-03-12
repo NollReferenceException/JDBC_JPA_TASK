@@ -11,6 +11,10 @@ public interface UserService {
 
     void saveUser(String name, String lastName, byte age);
 
+    void saveFullUser(User user);
+
+    List<User> getUserByModelAndSerial(String model, int serial);
+
     void removeUserById(long id);
 
     List<User> getAllUsers();

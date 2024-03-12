@@ -39,6 +39,16 @@
             <artifactId>hibernate-core</artifactId>
             <version>4.3.10.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>5.0.1.RELEASE</version>
+        </dependency>
 
 
         <!--Если используешь MYSQL-->

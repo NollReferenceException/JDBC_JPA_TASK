@@ -11,6 +11,13 @@ public interface UserDao {
 
     void saveUser(String name, String lastName, byte age);
 
+    default void saveFullUser(User user) {
+    }
+
+    default List<User> getUserByModelAndSerial(String model, int serial) {
+        return null;
+    }
+
     void removeUserById(long id);
 
     List<User> getAllUsers();

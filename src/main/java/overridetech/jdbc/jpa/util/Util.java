@@ -65,6 +65,7 @@ public class Util {
     private Configuration getPostgresConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(overridetech.jdbc.jpa.dataSets.UserDataSet.class);
+        configuration.addAnnotatedClass(overridetech.jdbc.jpa.dataSets.CarDataSet.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
@@ -73,6 +74,7 @@ public class Util {
         configuration.setProperty("hibernate.connection.username", System.getenv("postgres.login"));
         configuration.setProperty("hibernate.connection.password", System.getenv("postgres.password"));
         configuration.setProperty("hibernate.show_sql", "true");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
 
         return configuration;
     }

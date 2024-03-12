@@ -4,13 +4,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+import overridetech.jdbc.jpa.dataSets.CarDataSet;
 import overridetech.jdbc.jpa.dataSets.UserDataSet;
+import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
 import overridetech.jdbc.jpa.util.Util;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Repository
 public class UserDaoHibernateImpl implements UserDao {
     private final String tableId = "users.users";
     private final SessionFactory sessionFactory = Util.getInstance().getSessionFactory();
@@ -55,6 +59,43 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
+    public void saveFullUser(User user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(new UserDataSet(user));
+
+        transaction.commit();
+        session.close();
+    }
+
+    @Override
+    public List<User> getUserByModelAndSerial(String model, int series) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        List<UserDataSet> users;
+
+        Query query = session.createQuery("from " + UserDataSet.class.getName() +
+                " u left join fetch u.carDataSet where (model = :model) AND (series = :series)");
+
+        query.setParameter("model", model);
+        query.setParameter("series", series);
+
+        users = query.list();
+
+        transaction.commit();
+        session.close();
+
+        return users.stream()
+                .map(userData -> new User(userData.getName(),
+                        userData.getLastName(),
+                        userData.getAge(),
+                        new Car(userData.getCarDataSet().getModel(),
+                                userData.getCarDataSet().getSeries())))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void removeUserById(long id) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -77,7 +118,11 @@ public class UserDaoHibernateImpl implements UserDao {
         session.close();
 
         return list.stream()
-                .map(userData -> new User(userData.getName(), userData.getLastName(), userData.getAge()))
+                .map(userData -> new User(userData.getName(),
+                        userData.getLastName(),
+                        userData.getAge(),
+                        new Car(userData.getCarDataSet().getModel(),
+                                userData.getCarDataSet().getSeries())))
                 .collect(Collectors.toList());
     }
 

@@ -12,14 +12,22 @@ public class User {
     private String lastName;
     private Byte age;
 
-    public User() {
+    private Car car;
 
+    public User() {
     }
 
     public User(String name, String lastName, Byte age) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    public User(String name, String lastName, Byte age, Car car) {
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.car = car;
     }
 
     public Long getId() {
@@ -58,6 +66,16 @@ public class User {
     public String toString() {
         return "Имя - " + name + " | " +
                 "Фамилия - " + lastName + " | " +
-                "Возраст - " + age;
+                "Возраст - " + age + " | " +
+                "Модель - " + car.getModel() + " | " +
+                "Серия - " + car.getSeries();
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 }
