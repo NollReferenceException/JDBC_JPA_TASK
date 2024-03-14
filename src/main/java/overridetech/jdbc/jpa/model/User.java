@@ -1,44 +1,37 @@
 package overridetech.jdbc.jpa.model;
 
-import overridetech.jdbc.jpa.dataSets.UserDataSet;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
-public class User {
-    private Long id;
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column
     private String name;
+
+    @Column
     private String lastName;
+
+    @Column
     private Byte age;
 
+    @OneToOne(cascade = CascadeType.ALL)
     private Car car;
 
+    @SuppressWarnings("UnusedDeclaration")
     public User() {
     }
 
-    public User(String name, String lastName, Byte age) {
+    public User(String name, String lastName, byte age) {
+
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-    }
-
-    public User(UserDataSet userDataSet) {
-        this.id = userDataSet.getId();
-        this.name = userDataSet.getName();
-        this.lastName = userDataSet.getLastName();
-        this.age = userDataSet.getAge() ;
-        this.car = new Car(userDataSet.getCarDataSet());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -65,14 +58,12 @@ public class User {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "ID - " + id + " | " +
-                "Имя - " + name + " | " +
-                "Фамилия - " + lastName + " | " +
-                "Возраст - " + age + " | " +
-                "Модель - " + car.getModel() + " | " +
-                "Серия - " + car.getSeries();
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Car getCar() {
@@ -81,5 +72,15 @@ public class User {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    @Override
+    public String toString() {
+        return "ID - " + id + " | " +
+                "Имя - " + name + " | " +
+                "Фамилия - " + lastName + " | " +
+                "Возраст - " + age + " | " +
+                "Модель - " + car.getModel() + " | " +
+                "Серия - " + car.getSeries();
     }
 }

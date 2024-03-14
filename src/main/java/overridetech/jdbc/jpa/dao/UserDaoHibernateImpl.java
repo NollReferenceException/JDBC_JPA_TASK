@@ -6,10 +6,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import overridetech.jdbc.jpa.dataSets.UserDataSet;
 import overridetech.jdbc.jpa.model.User;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Repository
@@ -52,7 +51,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.save(new UserDataSet(name, lastName, age));
+        session.save(new User(name, lastName, age));
 
         transaction.commit();
         session.close();
@@ -63,7 +62,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.save(new UserDataSet(user));
+        session.save(user);
 
         transaction.commit();
         session.close();
@@ -73,10 +72,10 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getUserByModelAndSerial(String model, int series) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        List<UserDataSet> users;
+        List<User> users;
 
-        Query query = session.createQuery("from " + UserDataSet.class.getName() +
-                " u left join fetch u.carDataSet where (model = :model) AND (series = :series)");
+        Query query = session.createQuery("from " + User.class.getName() +
+                " u left join fetch u.car where (model = :model) AND (series = :series)");
 
         query.setParameter("model", model);
         query.setParameter("series", series);
@@ -86,9 +85,7 @@ public class UserDaoHibernateImpl implements UserDao {
         transaction.commit();
         session.close();
 
-        return users.stream()
-                .map(User::new)
-                .collect(Collectors.toList());
+        return users;
     }
 
     @Override
@@ -96,7 +93,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        session.delete(session.load(UserDataSet.class, id));
+        session.delete(session.load(User.class, id));
 
         session.flush();
         transaction.commit();
@@ -108,14 +105,12 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<UserDataSet> list = session.createCriteria(UserDataSet.class).list();
+        List<User> list = session.createCriteria(User.class).list();
 
         transaction.commit();
         session.close();
 
-        return list.stream()
-                .map(User::new)
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
@@ -123,7 +118,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        Query query = session.createQuery("delete from " + UserDataSet.class.getName());
+        Query query = session.createQuery("delete from " + User.class.getName());
         query.executeUpdate();
 
         transaction.commit();

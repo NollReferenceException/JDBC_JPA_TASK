@@ -1,6 +1,6 @@
 import org.springframework.beans.factory.annotation.Autowired;
-import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
+import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;

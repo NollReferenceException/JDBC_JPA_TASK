@@ -14,8 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import overridetech.jdbc.jpa.dataSets.CarDataSet;
-import overridetech.jdbc.jpa.dataSets.UserDataSet;
+import overridetech.jdbc.jpa.model.*;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -81,9 +80,9 @@ public class SpringConfig implements WebMvcConfigurer {
         props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
 
         factoryBean.setHibernateProperties(props);
-        factoryBean.setPackagesToScan("overridetech.jdbc.jpa.dataSets");
-        factoryBean.setAnnotatedClasses(UserDataSet.class);
-        factoryBean.setAnnotatedClasses(CarDataSet.class);
+        factoryBean.setPackagesToScan("overridetech.jdbc.jpa.model");
+        factoryBean.setAnnotatedClasses(User.class);
+        factoryBean.setAnnotatedClasses(Car.class);
 
         return factoryBean;
     }

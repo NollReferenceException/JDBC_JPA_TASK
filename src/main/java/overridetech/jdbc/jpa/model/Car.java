@@ -1,23 +1,35 @@
 package overridetech.jdbc.jpa.model;
 
-import overridetech.jdbc.jpa.dataSets.CarDataSet;
+import javax.persistence.*;
+import java.io.Serializable;
 
-
-public class Car {
+@Entity
+@Table(name = "cars")
+public class Car implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
     private String model;
 
+    @Column
     private int series;
+
+    public Car() {
+    }
 
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
     }
 
-    public Car(CarDataSet carDataSet) {
-        this.id = carDataSet.getId();
-        this.model = carDataSet.getModel();
-        this.series = carDataSet.getSeries();
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getModel() {
@@ -34,13 +46,5 @@ public class Car {
 
     public void setSeries(int series) {
         this.series = series;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 }

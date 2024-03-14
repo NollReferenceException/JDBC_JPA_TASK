@@ -1,5 +1,4 @@
 package overridetech.jdbc.jpa.service;
-
 import overridetech.jdbc.jpa.model.User;
 
 import java.util.List;

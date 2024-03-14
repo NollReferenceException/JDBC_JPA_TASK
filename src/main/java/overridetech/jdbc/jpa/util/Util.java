@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import overridetech.jdbc.jpa.model.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,8 +65,8 @@ public class Util {
 
     private Configuration getPostgresConfiguration() {
         Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(overridetech.jdbc.jpa.dataSets.UserDataSet.class);
-        configuration.addAnnotatedClass(overridetech.jdbc.jpa.dataSets.CarDataSet.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Car.class);
 
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
