@@ -18,8 +18,12 @@ public class CarsController {
     CarService carService;
 
     @GetMapping("/cars")
-    public String getCars(@RequestParam("count") int count,
+    public String getCars(@RequestParam(value = "count", required = false) Integer count,
                           Model model) {
+
+        if (count == null) {
+            count = Integer.MAX_VALUE;
+        }
 
         List<Car> cars = carService.getCarsByCount(count);
         model.addAttribute("cars", cars);
