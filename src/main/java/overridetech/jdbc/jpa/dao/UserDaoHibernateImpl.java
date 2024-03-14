@@ -7,11 +7,10 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import overridetech.jdbc.jpa.dataSets.UserDataSet;
-import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Repository
 public class UserDaoHibernateImpl implements UserDao {
@@ -60,7 +59,7 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
-    public void saveFullUser(User user) {
+    public void saveUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -88,11 +87,7 @@ public class UserDaoHibernateImpl implements UserDao {
         session.close();
 
         return users.stream()
-                .map(userData -> new User(userData.getName(),
-                        userData.getLastName(),
-                        userData.getAge(),
-                        new Car(userData.getCarDataSet().getModel(),
-                                userData.getCarDataSet().getSeries())))
+                .map(User::new)
                 .collect(Collectors.toList());
     }
 
@@ -119,11 +114,7 @@ public class UserDaoHibernateImpl implements UserDao {
         session.close();
 
         return list.stream()
-                .map(userData -> new User(userData.getName(),
-                        userData.getLastName(),
-                        userData.getAge(),
-                        new Car(userData.getCarDataSet().getModel(),
-                                userData.getCarDataSet().getSeries())))
+                .map(User::new)
                 .collect(Collectors.toList());
     }
 

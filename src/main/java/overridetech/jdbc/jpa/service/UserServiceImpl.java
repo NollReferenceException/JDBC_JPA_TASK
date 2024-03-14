@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService {
         userDao.saveUser(name, lastName, age);
     }
 
-    public void saveFullUser(User user) {
-        userDao.saveFullUser(user);
+    public void saveUser(User user) {
+        userDao.saveUser(user);
     }
 
     public List<User> getUserByModelAndSerial(String model, int serial) {

@@ -1,8 +1,10 @@
 package overridetech.jdbc.jpa.model;
 
-import javax.persistence.Column;
+import overridetech.jdbc.jpa.dataSets.CarDataSet;
+
 
 public class Car {
+    private long id;
     private String model;
 
     private int series;
@@ -10,6 +12,12 @@ public class Car {
     public Car(String model, int series) {
         this.model = model;
         this.series = series;
+    }
+
+    public Car(CarDataSet carDataSet) {
+        this.id = carDataSet.getId();
+        this.model = carDataSet.getModel();
+        this.series = carDataSet.getSeries();
     }
 
     public String getModel() {
@@ -26,5 +34,13 @@ public class Car {
 
     public void setSeries(int series) {
         this.series = series;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -1,16 +1,16 @@
-import overridetech.jdbc.jpa.dao.UserDaoHibernateImpl;
-import overridetech.jdbc.jpa.dao.UserDaoJDBCImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import overridetech.jdbc.jpa.model.Car;
 import overridetech.jdbc.jpa.model.User;
 import overridetech.jdbc.jpa.service.UserService;
-import overridetech.jdbc.jpa.service.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
 
 public class UserServiceTest {
-    private final UserService userService = new UserServiceImpl(new UserDaoJDBCImpl());
+
+    @Autowired
+    private UserService userService;
 
     private final String testName = "Ivan";
     private final String testLastName = "Ivanov";
@@ -63,9 +63,10 @@ public class UserServiceTest {
         try {
             userService.dropUsersTable();
             userService.createUsersTable();
-            User testUser = new User(testName, testLastName, testAge, new Car("testModel", 322));
+            User testUser = new User(testName, testLastName, testAge);
+            testUser.setCar(new Car("testModel", 322));
 
-            userService.saveFullUser(testUser);
+            userService.saveUser(testUser);
 
             User user = userService.getAllUsers().get(0);
 

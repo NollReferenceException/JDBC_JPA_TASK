@@ -1,5 +1,7 @@
 package overridetech.jdbc.jpa.model;
 
+import overridetech.jdbc.jpa.dataSets.UserDataSet;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,11 +25,12 @@ public class User {
         this.age = age;
     }
 
-    public User(String name, String lastName, Byte age, Car car) {
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-        this.car = car;
+    public User(UserDataSet userDataSet) {
+        this.id = userDataSet.getId();
+        this.name = userDataSet.getName();
+        this.lastName = userDataSet.getLastName();
+        this.age = userDataSet.getAge() ;
+        this.car = new Car(userDataSet.getCarDataSet());
     }
 
     public Long getId() {
@@ -64,7 +67,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "Имя - " + name + " | " +
+        return "ID - " + id + " | " +
+                "Имя - " + name + " | " +
                 "Фамилия - " + lastName + " | " +
                 "Возраст - " + age + " | " +
                 "Модель - " + car.getModel() + " | " +

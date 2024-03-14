@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Id </th>
+        <th> Model </th>
+        <th> Series </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${cars.empty}">
+        <td colspan="3"> No Cars Available </td>
+    </tr>
+    <tr th:each="car : ${cars}">
+        <td><span th:text="${car.id}"> Id </span></td>
+        <td><span th:text="${car.model}"> Model </span></td>
+        <td><span th:text="${car.series}"> Series </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
