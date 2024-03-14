@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource({"classpath:db.properties", "classpath:requests.properties"})
 @ComponentScan(value = "overridetech.jdbc.jpa")
 @EnableTransactionManagement
 @EnableWebMvc
